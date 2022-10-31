@@ -586,7 +586,8 @@ mysql> SELECT * FROM worker WHERE department NOT IN ('HR', 'admin');
 +-----------+------------+-----------+--------+---------------------+------------+
 2 rows in set (0.00 sec)
 
-mysql>
+
+
 
 
 
@@ -602,6 +603,514 @@ mysql>
 
 
  56:50
+
+
+
+
+
+
+mysql> SELECT * FROM worker WHERE department NOT IN ('HR', 'admin');
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | first_name | last_name | SALARY | joining_date        | department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         6 | Vipul      | Diwan     |  20000 | 2014-06-11 09:00:00 | Account    |
+|         7 | Satish     | Kumar     |  75000 | 2014-02-20 09:00:00 | Account    |
++-----------+------------+-----------+--------+---------------------+------------+
+2 rows in set (0.00 sec)
+
+mysql>  INSERT INTO Customer
+    -> VALUES (1252, 'Ram Kumar3', 'Dilbagh Nagar', 'M', 'Jalandhar', NULL);
+-- ERROR 1146 (42S02): Table 'org.customer' doesn't exist
+mysql>
+mysql>
+mysql> show database();
+-- ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database()' at line 1
+-- mysql> show database;
+-- ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+-- mysql> select database;
+-- ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+-- mysql> select database();
++------------+
+| database() |
++------------+
+| org        |
++------------+
+1 row in set (0.01 sec)
+
+mysql> show databases
+    -> ^C
+mysql> show databases;
++----------------------+
+| Database             |
++----------------------+
+| book_shop            |
+| cat_app              |
+| customers_and_orders |
+| ig_clone             |
+| information_schema   |
+| join_us              |
+| mysql                |
+| new_testing_db       |
+| org                  |
+| people               |
+| performance_schema   |
+| shirts_db            |
+| sys                  |
+| temp                 |
+| tv_review_app        |
++----------------------+
+15 rows in set (0.04 sec)
+
+mysql> USE temp;
+Database changed
+mysql> show databases;
++----------------------+
+| Database             |
++----------------------+
+| book_shop            |
+| cat_app              |
+| customers_and_orders |
+| ig_clone             |
+| information_schema   |
+| join_us              |
+| mysql                |
+| new_testing_db       |
+| org                  |
+| people               |
+| performance_schema   |
+| shirts_db            |
+| sys                  |
+| temp                 |
+| tv_review_app        |
++----------------------+
+15 rows in set (0.00 sec)
+
+mysql> select database();
++------------+
+| database() |
++------------+
+| temp       |
++------------+
+1 row in set (0.00 sec)
+
+mysql> crate table Customer (
+    -> id integer PRIMARY KEY,
+    -> cname VARCHAR(225),
+    -> Address VARCHAR(255),
+    -> Gender CHAR(2),
+    -> City VARCHAR(225),
+    -> Pincode INTEGER
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'crate table Customer (
+id integer PRIMARY KEY,
+cname VARCHAR(225),
+Address VARCH' at line 1
+mysql> crEate table Customer (
+    ->      id integer PRIMARY KEY,
+    ->      cname VARCHAR(225),
+    ->      Address VARCHAR(255),
+    ->      Gender CHAR(2),
+    ->      City VARCHAR(225),
+    ->      Pincode INTEGER
+    ->      );
+Query OK, 0 rows affected (0.13 sec)
+
+mysql>
+mysql> INSERT INTO Customer
+    -> VALUES(1251, "Ram Kumar", "Dilbag Nagar", 'M', 'Jalandar', 144002),
+    ->       (1300, 'Shayam Singh', 'Ludhiana H.O', 'M', 'Ludhiana', 141001),
+    ->       (245, "Neelabh Shukla", "Ashok Nagar", 'M', 'Jalandar', 144003),
+    ->       (210, "Barkha Singh", "Dilbag Nagar", 'F', 'Jalandar', 144002),
+    ->       (500, 'Shayam Singh', 'Ludhiana H.O', 'M', 'Ludhiana', 141001);
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Customer
+    -> VALUES (1252, 'Ram Kumar3', "Dilbag Nagar", 'M', 'Jalandar', NULL);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM Customer
+    -> ^C
+mysql>       (500, 'Shayam Singh', 'Ludhiana H.O', 'M', 'Ludhiana', 141001);^C
+mysql> SELECT * FROM Customer;
++------+----------------+--------------+--------+----------+---------+
+| id   | cname          | Address      | Gender | City     | Pincode |
++------+----------------+--------------+--------+----------+---------+
+|  210 | Barkha Singh   | Dilbag Nagar | F      | Jalandar |  144002 |
+|  245 | Neelabh Shukla | Ashok Nagar  | M      | Jalandar |  144003 |
+|  500 | Shayam Singh   | Ludhiana H.O | M      | Ludhiana |  141001 |
+| 1251 | Ram Kumar      | Dilbag Nagar | M      | Jalandar |  144002 |
+| 1252 | Ram Kumar3     | Dilbag Nagar | M      | Jalandar |    NULL |
+| 1300 | Shayam Singh   | Ludhiana H.O | M      | Ludhiana |  141001 |
++------+----------------+--------------+--------+----------+---------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Customer WHERE Pincode = NULL;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM Customer WHERE Pincode IS NULL;
++------+------------+--------------+--------+----------+---------+
+| id   | cname      | Address      | Gender | City     | Pincode |
++------+------------+--------------+--------+----------+---------+
+| 1252 | Ram Kumar3 | Dilbag Nagar | M      | Jalandar |    NULL |
++------+------------+--------------+--------+----------+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM Customer WHERE Pincode = NULL;
+Empty set (0.00 sec)
+
+mysql> use org
+Database changed
+mysql> SELECT * FROM worker WHERE first_name LIKE '%I%';
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | first_name | last_name | SALARY | joining_date        | department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     |  50000 | 2014-06-11 09:00:00 | admin      |
+|         6 | Vipul      | Diwan     |  20000 | 2014-06-11 09:00:00 | Account    |
+|         7 | Satish     | Kumar     |  75000 | 2014-02-20 09:00:00 | Account    |
+|         8 | Getika     | Chauhan   |  90000 | 2014-06-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+8 rows in set (0.02 sec)
+
+mysql> SELECT * FROM worker WHERE first_name LIKE '%I_';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM worker WHERE first_name LIKE '_i%';
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | first_name | last_name | SALARY | joining_date        | department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         5 | Vivek      | Bhati     |  50000 | 2014-06-11 09:00:00 | admin      |
+|         6 | Vipul      | Diwan     |  20000 | 2014-06-11 09:00:00 | Account    |
++-----------+------------+-----------+--------+---------------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM worker WHERE first_name LIKE '__i%';
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | first_name | last_name | SALARY | joining_date        | department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         4 | Amitabh    | singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO worker
+    -> VALUES(7, 'abcdi', 'xyz', 20000, '2014-02-20 09:00:00', 'Admin');
+ERROR 1062 (23000): Duplicate entry '7' for key 'worker.PRIMARY'
+mysql> VALUES(10, 'abcdi', 'xyz', 20000, '2014-02-20 09:00:00', 'Admin');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(10, 'abcdi', 'xyz', 20000, '2014-02-20 09:00:00', 'Admin')' at line 1
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>  INSERT INTO worker
+    ->     VALUES(7, 'abcdi', 'xyz', 20000, '2014-02-20 09:00:00', 'Admin');
+ERROR 1062 (23000): Duplicate entry '7' for key 'worker.PRIMARY'
+mysql>
+mysql>
+mysql>  INSERT INTO worker
+    ->     VALUES(10, 'abcdi', 'xyz', 20000, '2014-02-20 09:00:00', 'Admin');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM worker WHERE first_name LIKE '%I_';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM worker WHERE first_name LIKE '%I%';
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | first_name | last_name | SALARY | joining_date        | department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     |  50000 | 2014-06-11 09:00:00 | admin      |
+|         6 | Vipul      | Diwan     |  20000 | 2014-06-11 09:00:00 | Account    |
+|         7 | Satish     | Kumar     |  75000 | 2014-02-20 09:00:00 | Account    |
+|         8 | Getika     | Chauhan   |  90000 | 2014-06-11 09:00:00 | Admin      |
+|        10 | abcdi      | xyz       |  20000 | 2014-02-20 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * FROM worker WHERE first_name LIKE '%I%';
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | first_name | last_name | SALARY | joining_date        | department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     |  50000 | 2014-06-11 09:00:00 | admin      |
+|         6 | Vipul      | Diwan     |  20000 | 2014-06-11 09:00:00 | Account    |
+|         7 | Satish     | Kumar     |  75000 | 2014-02-20 09:00:00 | Account    |
+|         8 | Getika     | Chauhan   |  90000 | 2014-06-11 09:00:00 | Admin      |
+|        10 | abcdi      | xyz       |  20000 | 2014-02-20 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+9 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> SELECT * FROM worker ORDER BY salary;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | first_name | last_name | SALARY | joining_date        | department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         6 | Vipul      | Diwan     |  20000 | 2014-06-11 09:00:00 | Account    |
+|        10 | abcdi      | xyz       |  20000 | 2014-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     |  50000 | 2014-06-11 09:00:00 | admin      |
+|         7 | Satish     | Kumar     |  75000 | 2014-02-20 09:00:00 | Account    |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | admin      |
+|         8 | Getika     | Chauhan   |  90000 | 2014-06-11 09:00:00 | Admin      |
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+9 rows in set (0.00 sec)
+
+mysql>
+mysql> SELECT * FROM worker ORDER BY DESC salary;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DESC salary' at line 1
+mysql> SELECT * FROM worker ORDER BY DSCE salary;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salary' at line 1
+mysql> SELECT * FROM worker ORDER BY salary DESC;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | first_name | last_name | SALARY | joining_date        | department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         4 | Amitabh    | singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         8 | Getika     | Chauhan   |  90000 | 2014-06-11 09:00:00 | Admin      |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | admin      |
+|         7 | Satish     | Kumar     |  75000 | 2014-02-20 09:00:00 | Account    |
+|         5 | Vivek      | Bhati     |  50000 | 2014-06-11 09:00:00 | admin      |
+|         6 | Vipul      | Diwan     |  20000 | 2014-06-11 09:00:00 | Account    |
+|        10 | abcdi      | xyz       |  20000 | 2014-02-20 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * FROM worker ORDER BY salary ASC;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | first_name | last_name | SALARY | joining_date        | department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         6 | Vipul      | Diwan     |  20000 | 2014-06-11 09:00:00 | Account    |
+|        10 | abcdi      | xyz       |  20000 | 2014-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     |  50000 | 2014-06-11 09:00:00 | admin      |
+|         7 | Satish     | Kumar     |  75000 | 2014-02-20 09:00:00 | Account    |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | admin      |
+|         8 | Getika     | Chauhan   |  90000 | 2014-06-11 09:00:00 | Admin      |
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT DESTINCT department FROM worker;
+ERROR 1054 (42S22): Unknown column 'DESTINCT' in 'field list'
+mysql> SELECT DISTINCT department FROM worker;
++------------+
+| department |
++------------+
+| HR         |
+| admin      |
+| Account    |
++------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT DISTINCT department FROM worker;
++------------+
+| department |
++------------+
+| HR         |
+| admin      |
+| Account    |
++------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT department FROM worker GROUP BY department;
++------------+
+| department |
++------------+
+| HR         |
+| admin      |
+| Account    |
++------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT department, COUNT(department) FROM worker GROUP BY department;
++------------+-------------------+
+| department | COUNT(department) |
++------------+-------------------+
+| HR         |                 2 |
+| admin      |                 5 |
+| Account    |                 2 |
++------------+-------------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT department, AVG(salary) FROM worker GROUP BY department;
++------------+-------------+
+| department | AVG(salary) |
++------------+-------------+
+| HR         | 200000.0000 |
+| admin      | 148000.0000 |
+| Account    |  47500.0000 |
++------------+-------------+
+3 rows in set (0.02 sec)
+
+mysql> SELECT department, MIN(salary) FROM worker GROUP BY department;
++------------+-------------+
+| department | MIN(salary) |
++------------+-------------+
+| HR         |      100000 |
+| admin      |       20000 |
+| Account    |       20000 |
++------------+-------------+
+3 rows in set (0.02 sec)
+
+mysql> SELECT department, MAX(salary) FROM worker GROUP BY department;
++------------+-------------+
+| department | MAX(salary) |
++------------+-------------+
+| HR         |      300000 |
+| admin      |      500000 |
+| Account    |       75000 |
++------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT department, SUM(salary) FROM worker GROUP BY department;
++------------+-------------+
+| department | SUM(salary) |
++------------+-------------+
+| HR         |      400000 |
+| admin      |      740000 |
+| Account    |       95000 |
++------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT department, COUNT(department) FROM worker GROUP BY department HAVING COUNT(department = 2);
++------------+-------------------+
+| department | COUNT(department) |
++------------+-------------------+
+| HR         |                 2 |
+| admin      |                 5 |
+| Account    |                 2 |
++------------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT department, COUNT(department) FROM worker GROUP BY department HAVING COUNT(department > 2);
++------------+-------------------+
+| department | COUNT(department) |
++------------+-------------------+
+| HR         |                 2 |
+| admin      |                 5 |
+| Account    |                 2 |
++------------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT department, COUNT(department) FROM worker GROUP BY department HAVING COUNT(department > 4);
++------------+-------------------+
+| department | COUNT(department) |
++------------+-------------------+
+| HR         |                 2 |
+| admin      |                 5 |
+| Account    |                 2 |
++------------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT department, COUNT(department) FROM worker GROUP BY department HAVING COUNT(department > 4);
++------------+-------------------+
+| department | COUNT(department) |
++------------+-------------------+
+| HR         |                 2 |
+| admin      |                 5 |
+| Account    |                 2 |
++------------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql> ^C
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> ^C
+mysql>
+mysql> SELECT department, COUNT(department) FROM worker GROUP BY department HAVING COUNT(department > 4);
++------------+-------------------+
+| department | COUNT(department) |
++------------+-------------------+
+| HR         |                 2 |
+| admin      |                 5 |
+| Account    |                 2 |
++------------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql>
+
+
+
+mysql> SELECT department, COUNT(department) FROM worker GROUP BY department HAVING COUNT(department > 4);
++------------+-------------------+
+| department | COUNT(department) |
++------------+-------------------+
+| HR         |                 2 |
+| admin      |                 5 |
+| Account    |                 2 |
++------------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql> ^C
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> ^C
+mysql>
+mysql> SELECT department, COUNT(department) FROM worker GROUP BY department HAVING COUNT(department > 4);
++------------+-------------------+
+| department | COUNT(department) |
++------------+-------------------+
+| HR         |                 2 |
+| admin      |                 5 |
+| Account    |                 2 |
++------------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT department, COUNT(department) FROM worker GROUP BY department HAVING COUNT(department) > 2;
++------------+-------------------+
+| department | COUNT(department) |
++------------+-------------------+
+| admin      |                 5 |
++------------+-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT department, COUNT(department) FROM worker GROUP BY department HAVING COUNT(department) > 1;
++------------+-------------------+
+| department | COUNT(department) |
++------------+-------------------+
+| HR         |                 2 |
+| admin      |                 5 |
+| Account    |                 2 |
++------------+-------------------+
+3 rows in set (0.02 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+
+--  1:30:14
+
+
+
+
 
 
 
