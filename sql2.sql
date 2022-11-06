@@ -1113,6 +1113,417 @@ mysql>
 
 
 
+    -> ^C
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> SHOW DATABASE;
+ERROR 2013 (HY000): Lost connection to MySQL server during query
+No connection. Trying to reconnect...
+Connection id:    18
+Current database: org
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATABASE' at line 1
+mysql> SELECT DATABASE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SELECT DATABASE();
++------------+
+| DATABASE() |
++------------+
+| org        |
++------------+
+1 row in set (0.00 sec)
+
+mysql> USE temp;
+Database changed
+mysql>
+mysql> SELECT * FROM temp;
+-- ERROR 1146 (42S02): Table 'temp.temp' doesn't exist
+mysql> SELECT * FROM customer;
++------+----------------+--------------+--------+----------+---------+
+| id   | cname          | Address      | Gender | City     | Pincode |
++------+----------------+--------------+--------+----------+---------+
+|  210 | Barkha Singh   | Dilbag Nagar | F      | Jalandar |  144002 |
+|  245 | Neelabh Shukla | Ashok Nagar  | M      | Jalandar |  144003 |
+|  500 | Shayam Singh   | Ludhiana H.O | M      | Ludhiana |  141001 |
+| 1251 | Ram Kumar      | Dilbag Nagar | M      | Jalandar |  144002 |
+| 1252 | Ram Kumar3     | Dilbag Nagar | M      | Jalandar |    NULL |
+| 1300 | Shayam Singh   | Ludhiana H.O | M      | Ludhiana |  141001 |
++------+----------------+--------------+--------+----------+---------+
+6 rows in set (0.01 sec)
+
+mysql> SELECT * FROM order_details;
+--ERROR 1146 (42S02): Table 'temp.order_details' doesn't exist
+mysql> ^C
+mysql> ^C
+mysql> CREATE TABLE order_details(
+    ->     order_id INTEGER PRIMARY KEY,
+    ->     delivery_date DATE,
+    ->     cust_id INT,
+    ->     FOREIGN KEY (cust_id) REFERENCES Customer(id)
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql>
+mysql> CREATE TABLE account(
+    -> ^C
+mysql>
+mysql>
+mysql> CREATE TABLE account(
+    ->     id INT PRIMARY KEY,
+    ->     name VARCHAR(225) UNIQUE,
+    ->     balance INT,
+    ->     CONSTRAINT acc_balance_chk CHECK(balance > 1000)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql>
+mysql> INSERT INTO account(id, name, balance)
+    -> values(2,'B', 100);
+ERROR 3819 (HY000): Check constraint 'acc_balance_chk' is violated.
+mysql> INSERT INTO account(id, name, balance)
+    -> values(2,'B', 10000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM account;
++----+------+---------+
+| id | name | balance |
++----+------+---------+
+|  2 | B    |   10000 |
++----+------+---------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> CREATE TABLE ACCOUNT2;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql>
+mysql>
+mysql>
+mysql> CREATE TABLE account2(
+    ->     id INT PRIMARY KEY,
+    ->     name VARCHAR(225) UNIQUE,
+    ->     balance INT NOT NULL DEFAULT 0,
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 5
+mysql>
+mysql>
+mysql> CREATE TABLE account2(
+         id INT PRIMARY KEY,
+         name VARCHAR(225) UNIQUE,
+         balance INT NOT NULL DEFAULT 0
+     );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO account2(id, name)
+    -> values (1, 'A');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO account2(id, name)
+    -> values (2, 'B');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM account2;
++----+------+---------+
+| id | name | balance |
++----+------+---------+
+|  1 | A    |       0 |
+|  2 | B    |       0 |
++----+------+---------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- 1:50:38
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> use temp
+Database changed
+mysql> SELECT * FROM customer2;
+ERROR 1146 (42S02): Table 'temp.customer2' doesn't exist
+mysql> SELECT * FROM temp;
+ERROR 1146 (42S02): Table 'temp.temp' doesn't exist
+mysql> SELECT * FROM account2;
+-- ERROR 1146 (42S02): Table 'temp.account2' doesn't exist
+mysql> SELECT * FROM INFORMATION_SCHEMA^C
+mysql>
+mysql>
+mysql> INFORMATION_SCHEMA
+    -> ^C
+mysql> INFORMATION_SCHEMA;
+-- ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INFORMATION_SCHEMA' at line 1
+mysql> use temp
+Database changed
+mysql> SELECT * FROM customer;
++------+----------------+--------------+--------+----------+---------+
+| id   | cname          | Address      | Gender | City     | Pincode |
++------+----------------+--------------+--------+----------+---------+
+|  210 | Barkha Singh   | Dilbag Nagar | F      | Jalandar |  144002 |
+|  245 | Neelabh Shukla | Ashok Nagar  | M      | Jalandar |  144003 |
+|  500 | Shayam Singh   | Ludhiana H.O | M      | Ludhiana |  141001 |
+| 1251 | Ram Kumar      | Dilbag Nagar | M      | Jalandar |  144002 |
+| 1252 | Ram Kumar3     | Dilbag Nagar | M      | Jalandar |    NULL |
+| 1300 | Shayam Singh   | Ludhiana H.O | M      | Ludhiana |  141001 |
++------+----------------+--------------+--------+----------+---------+
+6 rows in set (0.05 sec)
+
+mysql> SELECT * FROM customer2;
+-- ERROR 1146 (42S02): Table 'temp.customer2' doesn't exist
+mysql> CREATE TABLE account2(
+    ->          id INT PRIMARY KEY,
+    ->          name VARCHAR(225) UNIQUE,
+    ->          balance INT NOT NULL DEFAULT 0
+    ->      );^C
+mysql> SELECT * FROM account2;
+-- ERROR 1146 (42S02): Table 'temp.account2' doesn't exist
+mysql> CREATE TABLE account2(
+    ->          id INT PRIMARY KEY,
+    ->          name VARCHAR(225) UNIQUE,
+    ->          balance INT NOT NULL DEFAULT 0
+    ->      );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> INSERT INTO account2(id, name)
+    ->     -> values (1, 'A');
+-- ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-> values (1, 'A')' at line 2
+mysql> INSERT INTO account2(id, name)
+    ->     values (1, 'A');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO account2(id, name)
+    ->     values (2, 'B');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM account2;
++----+------+---------+
+| id | name | balance |
++----+------+---------+
+|  1 | A    |       0 |
+|  2 | B    |       0 |
++----+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE account3(
+    ->   id INT PRIMARY KEY,
+    ->   name VARCHAR(255) UNIQUE,
+    ->   balance INT NOT NULL DEFAULT 0
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> ALTER TABLE account AND interest FLOAT NOT NULL DEFAULT 0;
+-- ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND interest FLOAT NOT NULL DEFAULT 0' at line 1
+mysql> ALTER TABLE account3 AND interest FLOAT NOT NULL DEFAULT 0;
+-- ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND interest FLOAT NOT NULL DEFAULT 0' at line 1
+mysql> SELECT * FROM interest;
+-- ERROR 1146 (42S02): Table 'temp.interest' doesn't exist
+mysql> use org
+Database changed
+mysql> SELECT * FROM interest;
+-- ERROR 1146 (42S02): Table 'org.interest' doesn't exist
+mysql> ^C
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> ALTER TABLE account3 ADD interest FLOAT NOT NULL DEFAULT 0;
+-- ERROR 1146 (42S02): Table 'org.account3' doesn't exist
+mysql>
+mysql>
+mysql>
+mysql> USE temp;
+Database changed
+mysql> ALTER TABLE account3 ADD interest FLOAT NOT NULL DEFAULT 0;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM account3;
+Empty set (0.00 sec)
+
+mysql>
+mysql>  INSERT INTO account2(id, name)
+    ->    values (1, 'A');^C
+mysql>
+mysql>
+mysql>
+mysql>  INSERT INTO account3(id, name)
+    ->    values (1, 'A');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM account3;
++----+------+---------+----------+
+| id | name | balance | interest |
++----+------+---------+----------+
+|  1 | A    |       0 |        0 |
++----+------+---------+----------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> ALTER TABLE account MODIFY interest DOUBLE NOT NULL DEFAULT 0;
+-- ERROR 1054 (42S22): Unknown column 'interest' in 'account'
+mysql> ALTER TABLE account3 MODIFY interest DOUBLE NOT NULL DEFAULT 0;
+Query OK, 1 row affected (0.09 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> DESC account;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| id      | int          | NO   | PRI | NULL    |       |
+| name    | varchar(225) | YES  | UNI | NULL    |       |
+| balance | int          | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+3 rows in set (0.03 sec)
+
+mysql> ALTER TABLE account CHANGE COLUMN interest saving_interest FLOAT NOT NULL DEFAULT 0;
+-- ERROR 1054 (42S22): Unknown column 'interest' in 'account'
+mysql> ALTER TABLE account3 CHANGE COLUMN interest saving_interest FLOAT NOT NULL DEFAULT 0;
+Query OK, 1 row affected (0.09 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> DESC account3;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| id              | int          | NO   | PRI | NULL    |       |
+| name            | varchar(255) | YES  | UNI | NULL    |       |
+| balance         | int          | NO   |     | 0       |       |
+| saving_interest | float        | NO   |     | 0       |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE account DROP COLUMN saving_interest;
+-- ERROR 1091 (42000): Can't DROP 'saving_interest'; check that column/key exists
+mysql>
+mysql> ALTER TABLE account3 DROP COLUMN saving_interest;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC account3;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| id      | int          | NO   | PRI | NULL    |       |
+| name    | varchar(255) | YES  | UNI | NULL    |       |
+| balance | int          | NO   |     | 0       |       |
++---------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql>
+mysql> ALTER TABLE account3 RENAME TO account_details;
+-- ERROR 1050 (42S01): Table 'account_details' already exists
+mysql>
+mysql> ALTER table account3 RENAME TO account_details;
+-- ERROR 1050 (42S01): Table 'account_details' already exists
+mysql> ALTER table account3 RENAME TO account_details1;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SELECT * FROM account3;
+-- ERROR 1146 (42S02): Table 'temp.account3' doesn't exist
+mysql>
+mysql>
+mysql> SELECT * FROM account3;
+-- ERROR 1146 (42S02): Table 'temp.account3' doesn't exist
+mysql>
+mysql> DESC account3;
+-- ERROR 1146 (42S02): Table 'temp.account3' doesn't exist
+mysql>
+mysql>
+mysql> USE account_details;
+-- ERROR 1049 (42000): Unknown database 'account_details'
+mysql>
+mysql>
+mysql>
+mysql> desc  account3;
+-- ERROR 1146 (42S02): Table 'temp.account3' doesn't exist
+mysql>
+mysql>
+mysql>  DESC account3;
+-- ERROR 1146 (42S02): Table 'temp.account3' doesn't exist
+mysql>
+mysql>
+mysql> CREATE TABLE account3(
+    ->     id INT PRIMARY KEY,
+    ->     name VARCHAR(225) UNIQUE,
+    ->     balance INT NOT NULL DEFAULT 0
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql>  INSERT INTO account3(id, name)
+    ->    values (1, 'A');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  INSERT INTO account3(id, name)
+    ->    values (2, 'B');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>
+mysql> SELECT * FROM account3;
++----+------+---------+
+| id | name | balance |
++----+------+---------+
+|  1 | A    |       0 |
+|  2 | B    |       0 |
++----+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE account RENAME TO account_details;
+ERROR 1050 (42S01): Table 'account_details' already exists
+mysql> ALTER TABLE account RENAME TO account_details1;
+ERROR 1050 (42S01): Table 'account_details1' already exists
+mysql>
+mysql>
+mysql> SELECT * FROM account_details;
++----+------+---------+
+| id | name | balance |
++----+------+---------+
+|  1 | A    |       0 |
+|  2 | B    |       0 |
++----+------+---------+
+2 rows in set (0.02 sec)
+
+mysql> SELECT * FROM account_details1;
++----+------+---------+
+| id | name | balance |
++----+------+---------+
+|  1 | A    |       0 |
++----+------+---------+
+1 row in set (0.00 sec)
+
+mysql>
+
+
 
 
 
